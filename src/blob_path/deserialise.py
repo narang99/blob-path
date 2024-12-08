@@ -40,7 +40,7 @@ def deserialise(payload: SerialisedBlobPath) -> BlobPath:
 
     # deserialisation takes a dict payload, which is generally the output of the `serialise` function of the underlying path
     payload = {
-        "kind": "blob-store-aws",
+        "kind": "blob-path-aws",
         "payload": {
             "bucket": "some-bucket-name",
             "region": "us-east-1",

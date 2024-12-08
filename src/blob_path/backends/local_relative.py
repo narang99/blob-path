@@ -45,7 +45,7 @@ class LocalRelativeBlobPath(BlobPath):
     Providing relative paths like this makes it easy to access file paths across different processes assuming they can access the file system. There is also a footgun here though, you need to make sure that the environment is correctly configured for every process using this path. In terms of the concepts of `BlobPath`, this path is not "Globally Unique"  
     """
 
-    kind = "blob-store-local-relative"
+    kind = "blob-path-local-relative"
 
     def __init__(self, relpath: PurePath) -> None:
         self._relpath = relpath

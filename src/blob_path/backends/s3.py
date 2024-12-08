@@ -70,7 +70,7 @@ class S3BlobPath(BlobPath, Presigned):
     This class does not use any implicit variables other than for providing the `create_default` factory function  
     """
 
-    kind = "blob-store-aws"
+    kind = "blob-path-aws"
 
     def __init__(self, bucket: str, region: str, object_key: PurePath) -> None:
         """Constructor for creating an S3BlobPath.

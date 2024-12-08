@@ -39,7 +39,7 @@ class AzureBlobPath(BlobPath):
     This class does not use any implicit variables other than for providing the `create_default` factory function  
     """
 
-    kind = "blob-store-azure"
+    kind = "blob-path-azure"
 
     def __init__(self, storage_account: str, container: str, name: PurePath) -> None:
         self._storage_account = storage_account

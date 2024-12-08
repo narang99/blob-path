@@ -1,4 +1,4 @@
-blob-store is a library providing a simple interface to storing your files in a cloud agnostic fashion  
+blob-path is a library providing a simple interface to storing your files in a cloud agnostic fashion  
 
 # Features
 - Cloud-agnostic storage of files
@@ -10,12 +10,12 @@ blob-store is a library providing a simple interface to storing your files in a 
 
 Downloading the core library.  
 ```bash
-pip install blob-store
+pip install blob-path
 ```
 Cloud storage providers are provided as extra pip installation dependencies. Currently only AWS S3 and Azure Blob Storage are supported.  
 ```bash
-pip install 'blob-store[aws]'
-pip install 'blob-store[azure]'
+pip install 'blob-path[aws]'
+pip install 'blob-path[azure]'
 ```
 
 The library is under active development and breaking changes are possible.  
