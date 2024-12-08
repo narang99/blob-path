@@ -1,0 +1,35 @@
+[project]
+name = "blob-path"
+version = "0.1.1"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Hariom Narang", email = "hariom.2711@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.10.1",
+    "typing-extensions>=4.12.2",
+]
+
+[project.optional-dependencies]
+azure = [
+    "azure-identity>=1.19.0",
+    "azure-storage-blob>=12.24.0",
+]
+aws = [
+    "boto3>=1.35.68",
+]
+gcp = [
+    "google-cloud-storage>=2.18.2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "boto3-stubs>=1.35.68",
+    "pytest>=8.3.3",
+]
