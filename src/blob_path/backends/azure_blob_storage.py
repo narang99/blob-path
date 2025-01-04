@@ -104,7 +104,7 @@ class AzureBlobPath(BlobPath):
         Users can extend this method if they want to change how the download is done  
         This is recommended if you want to tweak your performance etc.  
         """
-        self._get_blob_client().upload_blob(handle)
+        self._get_blob_client().upload_blob(handle, overwrite=True)
 
     def download(self, handle: IO[bytes]):
         """Download data for the given Azure Blob Store path and write it to the provided binary handle.
