@@ -2,7 +2,6 @@ from contextlib import contextmanager
 from pathlib import PurePath
 from typing import IO, Any, Generator
 
-from azure.storage.blob import BlobServiceClient
 from pydantic import BaseModel
 from typing_extensions import Self
 
@@ -72,6 +71,8 @@ class AzureBlobPath(BlobPath):
         return default_credential
 
     def _get_service_client(self):
+        from azure.storage.blob import BlobServiceClient
+
         account_url = f"https://{self.storage_account}.blob.core.windows.net"
         return BlobServiceClient(account_url, credential=self.credential())
 

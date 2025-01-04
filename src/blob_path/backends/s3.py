@@ -8,8 +8,6 @@ from contextlib import contextmanager
 from pathlib import PurePath
 from typing import IO, Any, final
 
-import boto3.session
-import botocore.exceptions
 from pydantic import BaseModel
 from typing_extensions import Self
 
@@ -33,6 +31,7 @@ IMPLICIT_GEN_REGION = prefix_var("GEN_S3_REGION")
 
 @functools.lru_cache(maxsize=1)
 def _s3_session():
+    import boto3.session
     return boto3.session.Session()
 
 
@@ -123,6 +122,7 @@ class S3BlobPath(BlobPath, Presigned):
             return False
 
     def _head_object(self):
+        import botocore.exceptions
         try:
             client = self._s3_client()
             return client.head_object(Bucket=self.bucket, Key=self._s3_object_key())
@@ -196,7 +196,7 @@ class S3BlobPath(BlobPath, Presigned):
         return cls(bucket, region, p)
 
     @classmethod
-    def session(cls) -> boto3.session.Session:
+    def session(cls) -> "boto3.session.Session":
         """Get a boto3 session to use for BlobPath.  
         
         Override this if you want to change how your session is created  
@@ -268,6 +268,7 @@ class S3BlobPath(BlobPath, Presigned):
 
 @contextmanager
 def _wrap_does_not_exist(does_not_exist_msg):
+    import botocore.exceptions
     try:
         yield
     except botocore.exceptions.ClientError as ex:
