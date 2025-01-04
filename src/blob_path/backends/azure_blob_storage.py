@@ -24,18 +24,18 @@ IMPLICIT_GEN_CONTAINER = prefix_var("GEN_AZURE_BLOB_CONTAINER")
 class AzureBlobPath(BlobPath):
     """BlobPath modeling Azure Blob Storage.  
 
-    Properties:  
-    - Globally Unique: True  
+    Properties:
+        * Globally Unique: True  
 
-    An AzureBlobPath is located by three parameters: storage_account, container and a name  
-    You can pass this path around anywhere (any server, lambda, container, etc.) and the correct Azure Blob Store location will always be uniquely identified (`__eq__`, `serialise` and `deserialise` also behaves sanely here, that is, no matter the location, same serialised representations point to the same location globally and uniquely)  
+    An ``AzureBlobPath`` is located by three parameters: storage_account, container and a name.
+    You can pass this path around anywhere (any server, lambda, container, etc.) and the correct Azure Blob Store location will always be uniquely identified (``__eq__``, ``serialise`` and ``deserialise`` also behaves sanely here, that is, no matter the location, same serialised representations point to the same location globally and uniquely).
 
-    Implements: `blob_path.core.interface.BlobPath`  
+    Implements: ``blob_path.core.BlobPath``
 
-    Apart from the interface exposed by `BlobPath`, this class provides some extension points users can use to tweak how communication with Azure is done (you should be wholly able to tweak all performance and security params). Its advised to only override the methods below for extending the functionality of a path  
-    Methods that are safe to inherit and override: `download`, `upload` and `credential`  
+    Apart from the interface exposed by ``BlobPath``, this class provides some extension points users can use to tweak how communication with Azure is done (you should be wholly able to tweak all performance and security params). Its advised to only override the methods below for extending the functionality of a path  
+    Methods that are safe to inherit and override: ``download``, ``upload`` and ``credential``
 
-    This class does not use any implicit variables other than for providing the `create_default` factory function  
+    This class does not use any implicit variables other than for providing the ``create_default`` factory function  
     """
 
     kind = "blob-path-azure"
@@ -132,17 +132,17 @@ class AzureBlobPath(BlobPath):
 
     @classmethod
     def create_default(cls, p: PurePath) -> Self:
-        """Create a new `AzureBlobPath`, the container and storage_account would be injected from implicit variables.
+        """Create a new ``AzureBlobPath``, the container and storage_account would be injected from implicit variables.
 
         Implicit variables:  
-            storage_account: IMPLICIT_BLOB_PATH_GEN_AZURE_BLOB_STORAGE_ACCOUNT  
-            container: IMPLICIT_BLOB_PATH_GEN_AZURE_BLOB_CONTAINER  
+            * storage_account: ``IMPLICIT_BLOB_PATH_GEN_AZURE_BLOB_STORAGE_ACCOUNT``
+            * container: ``IMPLICIT_BLOB_PATH_GEN_AZURE_BLOB_CONTAINER``
 
         Args:  
             p: A PurePath which represents the "object_key" that you want to use  
 
         Returns:  
-            An `AzureBlobPath`  
+            An ``AzureBlobPath``  
         """
         storage_account = get_implicit_var(IMPLICIT_GEN_STORAGE_ACCOUNT)
         container = get_implicit_var(IMPLICIT_GEN_CONTAINER)
@@ -152,7 +152,7 @@ class AzureBlobPath(BlobPath):
         return f"kind={self.kind} storage_account={self.storage_account} container={self.container} name={self.name}"
 
     def __eq__(self, value: Any) -> bool:
-        """Check if current blob path is equal to the `value`.
+        """Check if current blob path is equal to the ``value``.
 
         The equality check does not check the underlying file content. It simply checks whether these two paths point to the same location  
         For Azure, this equality check is always correct. Two paths in different environments would always point to the same Azure object if they are equal  

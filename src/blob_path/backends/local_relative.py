@@ -20,29 +20,30 @@ class LocalRelativeBlobPath(BlobPath):
     """BlobPath modeling a file which is always relative to a root directory that is injected using implicit variables.
 
     Properties:  
-    - Globally Unique: False  
+        * Globally Unique: False  
 
-    The path is simply composed of `relpath`, a `pathlib.PurePath` which is the relative path from the root directory  
+    The path is simply composed of ``relpath``, a ``pathlib.PurePath`` which is the relative path from the root directory  
 
-    Usage:  
-    ```python
-    relpath = PurePath("hello") / "world.txt"
-    p = LocalRelativeBlobPath(relpath)
-    with p.open("r") as f:
-       print(f.read())
-    ```
+    Usage:
 
-    The path object is a really simple wrapper around `pathlib.PurePath` and `pathlib.Path`.  
+    .. code-block:: python
+
+        relpath = PurePath("hello") / "world.txt"
+        p = LocalRelativeBlobPath(relpath)
+        with p.open("r") as f:
+           print(f.read())
+
+    The path object is a really simple wrapper around ``pathlib.PurePath`` and ``pathlib.Path``.  
     The main use-case of this is to provide an API compatible with other storages.  
     This would enable you to seamlessly use your current FS to do file operations.  
 
-    The path uses an implicit variable `IMPLICIT_BLOB_PATH_LOCAL_RELATIVE_BASE_DIR` which injects the root directory to use for these paths. This variable is required to be present if you want to use this path  
+    The path uses an implicit variable ``IMPLICIT_BLOB_PATH_LOCAL_RELATIVE_BASE_DIR`` which injects the root directory to use for these paths. This variable is required to be present if you want to use this path  
     Injecting this variable makes this path a bit more flexible for using between different processes.  
 
-    - Two docker containers mounting the same volume at different mount points can transparently point to file paths correctly by simply changing their `IMPLICIT_BLOB_PATH_LOCAL_RELATIVE_BASE_DIR` variables  
-    - Same for two servers mounted on an NFS  
+    * Two docker containers mounting the same volume at different mount points can transparently point to file paths correctly by simply changing their ``IMPLICIT_BLOB_PATH_LOCAL_RELATIVE_BASE_DIR`` variables  
+    * Same for two servers mounted on an NFS  
 
-    Providing relative paths like this makes it easy to access file paths across different processes assuming they can access the file system. There is also a footgun here though, you need to make sure that the environment is correctly configured for every process using this path. In terms of the concepts of `BlobPath`, this path is not "Globally Unique"  
+    Providing relative paths like this makes it easy to access file paths across different processes assuming they can access the file system. There is also a footgun here though, you need to make sure that the environment is correctly configured for every process using this path. In terms of the concepts of ``BlobPath``, this path is not "Globally Unique"  
     """
 
     kind = "blob-path-local-relative"
@@ -65,7 +66,7 @@ class LocalRelativeBlobPath(BlobPath):
         """Serialise the BlobPath to JSON-able dict.
 
         The serialisation of LocalRelativeBlobPath is not Globally Unique  
-        Due to the path using implicit variables to determine the root directory, two `LocalRelativeBlobPath` path objects might point to different files when their serialisation are the same  
+        Due to the path using implicit variables to determine the root directory, two ``LocalRelativeBlobPath`` path objects might point to different files when their serialisation are the same  
         """
         p = Payload(relpath_parts=list(self._relpath.parts))
         return SerialisedBlobPath(kind=self.kind, payload=p.model_dump(mode="json"))

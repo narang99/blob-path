@@ -32,6 +32,7 @@ build-backend = "hatchling.build"
 dev = [
     "boto3-stubs>=1.35.68",
     "ipykernel>=6.29.5",
+    "nbsphinx>=0.9.6",
     "pytest>=8.3.3",
     "sphinx>=8.1.3",
 ]

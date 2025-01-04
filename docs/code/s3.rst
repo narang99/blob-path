@@ -1,0 +1,17 @@
+======
+AWS S3
+======
+
+
+Core Interfaces
+===============
+
+
+.. autoclass:: blob_path.backends.s3::S3BlobPath
+   :members:
+
+
+Serialisation
+=============
+
+.. autoclass:: blob_path.backends.s3::Payload

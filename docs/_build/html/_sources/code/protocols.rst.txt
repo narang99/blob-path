@@ -1,0 +1,5 @@
+.. autoclass:: blob_path.core::BlobPath
+   :members:
+
+.. autoclass:: blob_path.core::Presigned
+   :members:

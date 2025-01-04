@@ -1,6 +1,6 @@
-"""S3 backend for `blob_path.core.interface.BlobPath`.
+"""S3 backend for ``blob_path.core.interface.BlobPath``.
 
-The main class this module provides is `S3BlobPath`, the main abstraction for talking to S3  
+The main class this module provides is ``S3BlobPath``, the main abstraction for talking to S3  
 """
 
 import functools
@@ -19,7 +19,7 @@ from blob_path.implicit import get_implicit_var, prefix_var
 
 
 class Payload(BaseModel):
-    "The serialised representation for the payload of an `blob_path.backends.s3.S3BlobPath`."
+    "The serialised representation for the payload of an ``blob_path.backends.s3.S3BlobPath``."
     bucket: str
     region: str
     object_key: list[str]
@@ -36,35 +36,37 @@ def _s3_session():
 
 
 class S3BlobPath(BlobPath, Presigned):
-    """BlobPath modeling AWS S3.
+    """``BlobPath`` modeling AWS S3.
 
     Properties:  
-    - Globally Unique: True  
+
+    * Globally Unique: True  
 
     An S3 blob path is located by three parameters: bucket, object_key and a region  
-    You can pass this path around anywhere (any server, lambda, container, etc.) and the correct S3 location will always be uniquely identified (`__eq__`, `serialise` and `deserialise` also behaves sanely here, that is, no matter the location, same serialised representations point to the same location globally and uniquely)  
+    You can pass this path around anywhere (any server, lambda, container, etc.) and the correct S3 location will always be uniquely identified (``__eq__``, ``serialise`` and ``deserialise`` also behaves sanely here, that is, no matter the location, same serialised representations point to the same location globally and uniquely)  
 
-    Implements: BlobPath, Presigned  
+    Implements: ``BlobPath``, ``Presigned``
 
-    Apart from the interface exposed by `BlobPath` and `Presigned`, this class provides some extension points users can use to tweak how communication with S3 is done (you should be wholly able to tweak all performance and security params). Its advised to only override the methods below for extending the functionality of a path  
-    Methods that are safe to inherit and override: `download`, `upload` and `session`  
+    Apart from the interface exposed by ``BlobPath`` and ``Presigned``, this class provides some extension points users can use to tweak how communication with S3 is done (you should be wholly able to tweak all performance and security params). Its advised to only override the methods below for extending the functionality of a path  
+    Methods that are safe to inherit and override: ``download``, ``upload`` and ``session``  
 
     Usage:  
-    ```python
-    from blob_path.backends.s3 import S3BlobPath
 
-    # the generic way is to use this constructor for defining your path
-    p = S3BlobPath(bucket, region, key)
-    with p.open("r") as f:
-       print(f.read())
+    .. code-block:: python
 
-    # the class also provides a factory `create_default` which can be used as follows:
-    # `bucket` and `region` are injected using implicit variables
-    p = S3BlobPath.create_default(PurePath("hello") / "world.txt")
+        from blob_path.backends.s3 import S3BlobPath
 
-    # generate a pre-signed url
-    url = p.presigned_url()
-    ```
+        # the generic way is to use this constructor for defining your path
+        p = S3BlobPath(bucket, region, key)
+        with p.open("r") as f:
+           print(f.read())
+        
+        # the class also provides a factory `create_default` which can be used as follows:
+        # `bucket` and `region` are injected using implicit variables
+        p = S3BlobPath.create_default(PurePath("hello") / "world.txt")
+        
+        # generate a pre-signed url
+        url = p.presigned_url()
 
     This class does not use any implicit variables other than for providing the `create_default` factory function  
     """
@@ -181,15 +183,16 @@ class S3BlobPath(BlobPath, Presigned):
     def create_default(cls, p: PurePath) -> Self:
         """Create a new S3BlobPath, the bucket and region would be injected from implicit variables.
 
-        Implicit variables:  
-            bucket: IMPLICIT_BLOB_PATH_GEN_S3_BUCKET  
-            region: IMPLICIT_BLOB_PATH_GEN_S3_REGION  
-
         Args:  
             p: A PurePath which represents the "object_key" that you want to use  
 
         Returns:  
             An `S3BlobPath`  
+
+        **Implicit variables:**
+            * ``bucket``: ``IMPLICIT_BLOB_PATH_GEN_S3_BUCKET``
+            * ``region``: ``IMPLICIT_BLOB_PATH_GEN_S3_REGION``
+
         """
         bucket = get_implicit_var(IMPLICIT_GEN_BUCKET)
         region = get_implicit_var(IMPLICIT_GEN_REGION)

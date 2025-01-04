@@ -41,6 +41,7 @@ Usage
 Basic example usage
 
 .. code-block:: python
+
   from blob_path.backends.s3 import S3BlobPath
   from pathlib import PurePath
 
@@ -57,3 +58,36 @@ Basic example usage
       # a file handle is returned here, just like `open`
       print(f.read())
 
+.. toctree::
+   :maxdepth: 1
+
+   Basic Usage <notebooks/00_usage.ipynb>
+
+Code Documentation
+==================
+
+Core Interfaces
+~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+
+   code/core.rst
+
+Storage Backends
+~~~~~~~~~~~~~~~~
+
+The documentation here is useful to find all the methods supported by your storage backend, their implicit variables, etc.
+
+.. toctree::
+   :maxdepth: 1
+
+   code/s3.rst
+   code/azure.rst
+   code/local_relative.rst
+
+Indices and tables
+==================
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
