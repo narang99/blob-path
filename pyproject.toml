@@ -1,8 +1,8 @@
 [project]
 name = "blob-path"
 version = "0.1.1"
-description = "Add your description here"
-readme = "README.rst"
+description = "A pathlib-like cloud agnostic object storage library"
+readme = "README.md"
 authors = [
     { name = "Hariom Narang", email = "hariom.2711@gmail.com" }
 ]
